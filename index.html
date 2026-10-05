@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffd9e6" />
+  <title>A Birthday Surprise 💖</title>
+  <meta name="description" content="A little birthday surprise, made with love." />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+
+  <!-- Fonts (needs internet once; the site still works with fallback fonts offline) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Gaegu:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- =============== SVG icon sprite =============== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.2 10.5V8a3.8 3.8 0 0 1 7.6 0v2.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-gift" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="4" rx="1.2"/><path d="M4.5 13v6.2a1.8 1.8 0 0 0 1.8 1.8h11.4a1.8 1.8 0 0 0 1.8-1.8V13M12 9v12"/><path d="M12 9C10 9 7.6 8.4 7.6 6.4S9.6 4 10.8 5.2 12 9 12 9zm0 0c2 0 4.4-.6 4.4-2.6S14.4 4 13.2 5.2 12 9 12 9z"/></g></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6.2L21 10v8.5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 10l9 6 9-6"/></g></symbol>
+      <symbol id="i-backspace" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 5H9.2L3 12l6.2 7H21a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/><path d="M17 9.5l-5 5M12 9.5l5 5"/></g></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.8l4.6 4.6L19.5 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-replay" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 1 0 2.7-6.2"/><path d="M3.2 3.8v4.6h4.6"/></g></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.3 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- =============== Background layers =============== -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg__img"></div>
+    <div class="bg__aurora a1"></div>
+    <div class="bg__aurora a2"></div>
+    <div class="bg__aurora a3"></div>
+  </div>
+  <canvas id="fx-ambient" aria-hidden="true"></canvas>
+  <canvas id="fx-confetti" aria-hidden="true"></canvas>
+
+  <!-- =============== Music control =============== -->
+  <audio id="bg-music" loop preload="auto"></audio>
+  <div class="music">
+    <span class="music__hint" id="music-hint" hidden>🎶 Tap anywhere to start the music</span>
+    <button class="music__btn glass-pill" id="music-btn" type="button" aria-label="Music on / off" aria-pressed="true">
+      <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    </button>
+  </div>
+
+  <!-- =============== App screens =============== -->
+  <main id="app">
+
+    <!-- 1 · LOCK -->
+    <section class="screen" id="screen-lock" aria-label="Unlock">
+      <div class="card card--lock tilt">
+        <div class="lock-orb">
+          <svg class="padlock" viewBox="0 0 100 100" aria-hidden="true">
+            <defs>
+              <linearGradient id="lockGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ff8fb7"/><stop offset="1" stop-color="#ee4b86"/>
+              </linearGradient>
+            </defs>
+            <path class="shackle" d="M34 50V35a16 16 0 0 1 32 0v15" fill="none" stroke="#7d3a52" stroke-width="7" stroke-linecap="round"/>
+            <path class="body" d="M50 90C21 71 14 54 24 46c8-6 20-3 26 7 6-10 18-13 26-7 10 8 3 25-26 44z" fill="url(#lockGrad)"/>
+            <path d="M28 49c3-3.5 8-4 12-1.5" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="3.2" stroke-linecap="round"/>
+            <circle cx="50" cy="62" r="4.2" fill="#7d3a52"/>
+            <rect x="48.5" y="62" width="3" height="9" rx="1.5" fill="#7d3a52"/>
+            <g class="key" transform="translate(14 64) rotate(-28)">
+              <circle cx="4" cy="4" r="4.2" fill="none" stroke="#d6e86b" stroke-width="2.6"/>
+              <path d="M8 4h13M17 4v4M21 4v3" fill="none" stroke="#d6e86b" stroke-width="2.6" stroke-linecap="round"/>
+            </g>
+          </svg>
+          <span class="lock-badge"><svg><use href="#i-lock"/></svg></span>
+        </div>
+        <h1 class="h-title" data-t="lock.title"></h1>
+        <p class="sub" data-t="lock.hint"></p>
+        <div class="pin" id="pin" aria-live="polite"></div>
+        <p class="pin-msg" id="pin-msg" role="alert"></p>
+        <div class="keypad" id="keypad">
+          <button class="key" data-k="1">1</button><button class="key" data-k="2">2</button><button class="key" data-k="3">3</button>
+          <button class="key" data-k="4">4</button><button class="key" data-k="5">5</button><button class="key" data-k="6">6</button>
+          <button class="key" data-k="7">7</button><button class="key" data-k="8">8</button><button class="key" data-k="9">9</button>
+          <span class="key-spacer"></span>
+          <button class="key" data-k="0">0</button>
+          <button class="key key--icon" data-k="back" aria-label="Delete"><svg><use href="#i-backspace"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · GIFT -->
+    <section class="screen" id="screen-gift" aria-label="Gift">
+      <div class="card card--gift tilt">
+        <div class="icon-orb"><svg><use href="#i-gift"/></svg></div>
+        <h2 class="h-title h-title--dark" data-t="gift.title"></h2>
+        <p class="sub sub--small" data-t="gift.hint"></p>
+        <button class="btn btn--primary" id="btn-open" type="button"><span data-t="gift.button"></span></button>
+      </div>
+    </section>
+
+    <!-- 3 · WELCOME -->
+    <section class="screen" id="screen-welcome" aria-label="Happy Birthday">
+      <div class="card card--welcome tilt">
+        <div class="hero-orb">
+          <svg class="sticker" viewBox="0 0 200 200" aria-hidden="true">
+            <defs>
+              <linearGradient id="cakeTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2cf"/><stop offset="1" stop-color="#f8d9a0"/></linearGradient>
+              <linearGradient id="cakeBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbd29a"/><stop offset="1" stop-color="#f3b977"/></linearGradient>
+              <linearGradient id="plate" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f06292"/><stop offset="1" stop-color="#d9457a"/></linearGradient>
+            </defs>
+            <ellipse cx="100" cy="171" rx="62" ry="12" fill="url(#plate)"/>
+            <ellipse cx="100" cy="166" rx="62" ry="11" fill="#f48fb1"/>
+            <g fill="#e53960"><circle cx="48" cy="162" r="7"/><circle cx="155" cy="163" r="7"/><circle cx="58" cy="168" r="5.5"/></g>
+            <g fill="#7bb661"><path d="M44 157l4-5 3 6z"/><path d="M152 158l4-5 3 6z"/></g>
+            <rect x="52" y="112" width="96" height="52" rx="16" fill="url(#cakeBody)"/>
+            <path d="M52 124c10 8 14-6 24 0s14-6 24 0 14-6 24 0 14 6 24 0v-6c0-8-6-12-16-12H68c-10 0-16 4-16 12z" fill="url(#cakeTop)"/>
+            <ellipse cx="100" cy="112" rx="48" ry="12" fill="url(#cakeTop)"/>
+            <!-- seal -->
+            <path d="M70 114c-4-26 8-46 30-46s34 20 30 46z" fill="#fff"/>
+            <path d="M128 90c10-8 22-6 24 2-6 0-8 4-10 8-4-2-8-6-14-10z" fill="#fff"/>
+            <circle cx="87" cy="92" r="3.8" fill="#3b3b4f"/><circle cx="111" cy="92" r="3.8" fill="#3b3b4f"/>
+            <circle cx="88.2" cy="90.8" r="1.2" fill="#fff"/><circle cx="112.2" cy="90.8" r="1.2" fill="#fff"/>
+            <ellipse cx="99" cy="99" rx="4.2" ry="3" fill="#f2a5b5"/>
+            <path d="M93 104c2.5 3 10.5 3 13 0" fill="none" stroke="#3b3b4f" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="78" cy="101" r="4.5" fill="#ffc9d6" opacity=".7"/><circle cx="120" cy="101" r="4.5" fill="#ffc9d6" opacity=".7"/>
+            <!-- candle -->
+            <rect x="96.5" y="44" width="7" height="22" rx="3" fill="#8ec5ff"/>
+            <path d="M96.5 52l7 3M96.5 59l7 3" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+            <path class="flame" d="M100 26c6 7 7 11 0 15-7-4-6-8 0-15z" fill="#ffb347"/>
+            <path d="M100 32c3 3 3 5 0 7-3-2-3-4 0-7z" fill="#fff3b0"/>
+          </svg>
+        </div>
+        <h1 class="script-hero">
+          <span class="l1" data-t="welcome.line1"></span>
+          <span class="l2"><span data-t="name"></span> <span class="emoji">❤️</span></span>
+        </h1>
+        <p class="body-text" data-t="welcome.text"></p>
+        <button class="btn btn--glass" id="btn-explore" type="button"><span data-t="welcome.button"></span><svg class="ico"><use href="#i-arrow"/></svg></button>
+      </div>
+    </section>
+
+    <!-- 4 · MEMORIES -->
+    <section class="screen screen--plain" id="screen-memories" aria-label="Memories">
+      <div class="stage">
+        <h2 class="h-title h-title--dark h-title--lg" data-t="memories.title"></h2>
+        <p class="pill-hint" data-t="memories.hint"></p>
+        <div class="polaroids tilt-soft" id="polaroids" aria-live="polite"></div>
+        <button class="btn btn--glass" id="btn-letter" type="button"><span data-t="memories.button"></span><svg class="ico"><use href="#i-arrow"/></svg></button>
+      </div>
+    </section>
+
+    <!-- 5 · MAIL -->
+    <section class="screen" id="screen-mail" aria-label="Mail">
+      <div class="card card--mail tilt">
+        <div class="icon-orb icon-orb--pink"><svg><use href="#i-mail"/></svg></div>
+        <h2 class="h-title h-title--dark h-title--md" data-t="mail.title"></h2>
+        <p class="sub sub--small" data-t="mail.hint"></p>
+        <button class="heart-btn" id="btn-mail" type="button" aria-label="Open the letter"><svg><use href="#i-heart"/></svg></button>
+      </div>
+    </section>
+
+    <!-- 6 · LETTER -->
+    <section class="screen" id="screen-letter" aria-label="Letter">
+      <div class="card card--letter tilt">
+        <header class="letter-head">
+          <span class="page-pill" id="page-pill"></span>
+          <span class="letter-from" data-t="letter.from"></span>
+        </header>
+        <div class="letter-pages" id="letter-pages"></div>
+        <footer class="letter-foot" id="letter-foot"></footer>
+      </div>
+    </section>
+
+    <!-- 7 · PUZZLE -->
+    <section class="screen screen--plain" id="screen-puzzle" aria-label="Puzzle">
+      <div class="stage">
+        <h2 class="h-title h-title--dark h-title--lg" data-t="puzzle.title"></h2>
+        <p class="pill-hint" id="puzzle-hint"></p>
+        <div class="board" id="board"><div class="board__grid" id="board-grid"></div></div>
+        <p class="swaps" id="swaps"></p>
+        <div class="solved-box" id="puzzle-done" hidden>
+          <span class="solved-tag"><svg><use href="#i-check"/></svg><span data-t="puzzle.doneText"></span></span>
+          <button class="btn btn--primary" id="btn-quiz" type="button"><span data-t="puzzle.button"></span><svg class="ico"><use href="#i-arrow"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 · QUIZ -->
+    <section class="screen screen--plain" id="screen-quiz" aria-label="Quiz">
+      <div class="stage">
+        <div class="hearts-bar" id="hearts-bar" aria-hidden="true"></div>
+        <div class="card card--quiz tilt">
+          <div class="q-box"><h2 id="q-text"></h2></div>
+          <div class="options" id="options"></div>
+          <p class="q-count" id="q-count"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 · RESULT -->
+    <section class="screen" id="screen-result" aria-label="Result">
+      <div class="card card--result tilt">
+        <div class="score-orb" id="score"></div>
+        <h2 class="script-md" data-t="result.title"></h2>
+        <p class="sub sub--mid" id="result-text"></p>
+        <button class="btn btn--primary" id="btn-last" type="button"><span data-t="result.button"></span><svg class="ico ico--fill"><use href="#i-star"/></svg></button>
+      </div>
+    </section>
+
+    <!-- 10 · FINALE -->
+    <section class="screen" id="screen-final" aria-label="Happy Birthday">
+      <div class="card card--final tilt">
+        <span class="fh fh--1"><svg><use href="#i-heart"/></svg></span>
+        <span class="fh fh--2"><svg><use href="#i-heart"/></svg></span>
+        <span class="fh fh--3"><svg><use href="#i-heart"/></svg></span>
+        <span class="fh fh--4"><svg><use href="#i-heart"/></svg></span>
+        <div class="photo-orb"><img id="final-photo" alt="" /></div>
+        <span class="kicker" data-t="finale.kicker"></span>
+        <h1 class="script-final" data-t="finale.title"></h1>
+        <p class="body-text body-text--sm" data-t="finale.text"></p>
+        <button class="btn btn--primary" id="btn-relive" type="button"><svg class="ico"><use href="#i-replay"/></svg><span data-t="finale.button"></span></button>
+      </div>
+    </section>
+  </main>
+
+  <nav class="progress glass-pill" id="progress" aria-hidden="true"></nav>
+
+  <noscript><p style="position:fixed;inset:0;display:grid;place-items:center;font:20px sans-serif;background:#fff">Please enable JavaScript to open your surprise 💖</p></noscript>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
